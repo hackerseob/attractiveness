@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>✨ 글로벌 매력 테스트 ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f5f8fa; /* 아주 연한 푸른 회색 */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            padding: 24px 20px; /* 상하 여백 늘리고 좌우 패딩 유지 */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 중앙 정렬 */
+        }
+        h1 {
+            color: #2196f3; /* 메인 블루 */
+            font-size: 1.8em;
+            margin-bottom: 12px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        .intro-text {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            color: #555;
+            padding: 0 5px; /* 좌우 여백 줄여서 텍스트 영역 확장 */
+        }
+        .question-box {
+            background-color: #ffffff; /* 배경을 컨테이너와 동일하게 */
+            border: none; /* 테두리 제거 */
+            border-bottom: 1px solid #e0e0e0; /* 하단 구분선만 남김 */
+            border-radius: 0; /* 둥근 모서리 제거 */
+            padding: 20px 0; /* 좌우 패딩 제거, 상하 패딩 유지 */
+            margin-bottom: 25px;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .question-box:last-of-type {
+            border-bottom: none; /* 마지막 질문은 하단 구분선 제거 */
+        }
+        .question-box h3 {
+            font-size: 1.15em; /* 폰트 크기 미세 조정 */
+            color: #3f51b5; /* 진한 블루 */
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-weight: 700;
+            padding-left: 5px; /* 질문 텍스트 좌측 정렬 */
+        }
+        .options label {
+            display: flex; /* Flexbox로 라디오 버튼과 텍스트 정렬 */
+            align-items: center;
+            background-color: #f0f8ff; /* 연한 하늘색 배경 */
+            border: 1px solid #b3e5fc; /* 연한 스카이블루 테두리 */
+            border-radius: 8px;
+            padding: 14px 15px; /* 패딩 늘려 터치 영역 확보 */
+            margin-bottom: 12px; /* 항목 간 간격 늘림 */
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.98em;
+            color: #444;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+        }
+        .options label:hover {
+            background-color: #e1f5fe; /* 호버 시 더 진한 하늘색 */
+            border-color: #81d4fa;
+            transform: translateY(-2px); /* 살짝 위로 이동 효과 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+        .options input[type="radio"] {
+            margin-right: 15px; /* 라디오 버튼과 텍스트 간격 늘림 */
+            transform: scale(1.1); /* 크기 유지 */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px; /* 터치 영역 위해 크기 키움 */
+            height: 20px;
+            border: 2px solid #90caf9; /* 연한 블루 테두리 */
+            border-radius: 50%;
+            outline: none;
+            position: relative;
+            flex-shrink: 0;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .options input[type="radio"]:checked {
+            border-color: #2196f3; /* 메인 블루 */
+            background-color: #2196f3;
+        }
+        .options input[type="radio"]:checked::before {
+            content: '';
+            display: block;
+            width: 10px; /* 내부 원 크기 키움 */
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .submit-button {
+            display: block;
+            width: 100%; /* 너비 꽉 채움 */
+            background-color: #2196f3; /* 메인 블루 */
+            color: white;
+            padding: 16px 20px; /* 패딩 늘려 버튼 크기 키움 */
+            border-radius: 30px;
+            font-size: 1.15em; /* 폰트 크기 키움 */
+            font-weight: 700;
+            margin-top: 40px; /* 위 여백 늘림 */
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3); /* 블루 계열 그림자 */
+        }
+        .submit-button:hover {
+            background-color: #1976d2; /* 더 진한 블루 */
+            transform: translateY(-2px);
+        }
+
+        /* 결과 섹션 */
+        .result-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #90caf9;
+            text-align: center; /* 결과 텍스트도 중앙 정렬 */
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .result-section h2 {
+            font-size: 1.6em;
+            color: #2196f3;
+            margin-bottom: 20px;
+        }
+        .country-name {
+            font-size: 1.7em; /* 크게 강조 */
+            font-weight: 700;
+            color: #0d47a1;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .result-text {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 25px;
+            padding: 0 10px; /* 좌우 여백 추가 */
+            text-align: center; /* 중앙 정렬 */
+        }
+        .result-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px; /* 모서리 더 둥글게 */
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .hashtags {
+            margin-top: 40px;
+            font-size: 0.85em; /* 폰트 크기 미세 조정 */
+            color: #888;
+            display: flex;
+            flex-wrap: wrap; /* 작은 화면에서 줄바꿈 허용 */
+            justify-content: center;
+            gap: 8px; /* 해시태그 간격 */
+        }
+        .hashtags span {
+            background-color: #e3f2fd;
+            padding: 6px 14px; /* 패딩 늘림 */
+            border-radius: 20px;
+            color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ 나의 매력, 글로벌 팬심 저격! ✨<br>MBTI 기반 '해외 매력 지수' 테스트 💙</h1>
+        <p class="intro-text">
+            안녕하세요! 당신의 MBTI는 어떤 매력을 품고 있을까요? 💫 그리고 그 매력이 지구 반대편 어느 나라 이성들의 마음을 설레게 할까요? 💖 아래 질문에 솔직하게 답하고, 당신의 글로벌 매력 지수를 확인해보세요! 🚀
+        </p>
+
+        <form id="mbtiSurveyForm">
+            <div class="question-box">
+                <h3>1. 당신의 MBTI는 무엇인가요? 🤔</h3>
+                <div class="options">
+                    <label><input type="radio" name="mbtiType" value="ISTJ" required> ISTJ 📚</label>
+                    <label><input type="radio" name="mbtiType" value="ISFJ"> ISFJ 😇</label>
+                    <label><input type="radio" name="mbtiType" value="INFJ"> INFJ 🌟</label>
+                    <label><input type="radio" name="mbtiType" value="INTJ"> INTJ 💡</label>
+                    <label><input type="radio" name="mbtiType" value="ISTP"> ISTP 🛠️</label>
+                    <label><input type="radio" name="mbtiType" value="ISFP"> ISFP 🎨</label>
+                    <label><input type="radio" name="mbtiType" value="INFP"> INFP 🌸</label>
+                    <label><input type="radio" name="mbtiType" value="INTP"> INTP 🧠</label>
+                    <label><input type="radio" name="mbtiType" value="ESTP"> ESTP ⚡</label>
+                    <label><input type="radio" name="mbtiType" value="ESFP"> ESFP 🎉</label>
+                    <label><input type="radio" name="mbtiType" value="ENFP"> ENFP 🌈</label>
+                    <label><input type="radio" name="mbtiType" value="ENTP"> ENTP 🗣️</label>
+                    <label><input type="radio" name="mbtiType" value="ESTJ"> ESTJ 📊</label>
+                    <label><input type="radio" name="mbtiType" value="ESFJ"> ESFJ 🤗</label>
+                    <label><input type="radio" name="mbtiType" value="ENFJ"> ENFJ 💖</label>
+                    <label><input type="radio" name="mbtiType" value="ENTJ"> ENTJ 👑</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>2. 주말에 새로운 사람들과의 모임이 있다면? 🥂</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="E" required> 기대되며, 에너지를 얻을 것 같다. ✨</label>
+                    <label><input type="radio" name="q1" value="I"> 약간 부담되지만, 가면 즐거울 것이다. 😌</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>3. 당신은 새로운 것을 배울 때, 어떤 방식이 더 효과적인가요? 🎓</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="S" required> 구체적인 예시나 실습을 통해 직접 경험한다. 💡</label>
+                    <label><input type="radio" name="q2" value="N"> 전체적인 개념이나 이론을 먼저 이해한다. 🗺️</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>4. 친구의 고민을 들었을 때, 당신의 반응은? 💬</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="T" required> 객관적인 해결책이나 논리적인 조언을 해준다. 🧐</label>
+                    <label><input type="radio" name="q3" value="F"> 친구의 감정에 공감하고 위로해준다. 🥰</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>5. 여행 계획을 세울 때, 당신은? ✈️</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="J" required> 모든 일정을 미리 세우고 계획대로 움직이려 한다. 📝</label>
+                    <label><input type="radio" name="q4" value="P"> 큰 틀만 잡고 즉흥적으로 상황에 맞춰 유연하게 움직인다. 🧭</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>6. 연인과의 관계에서 당신에게 가장 중요한 것은? ❤️</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="F_value" required> 정서적인 교감과 따뜻한 유대감. 🫂</label>
+                    <label><input type="radio" name="q5" value="T_value"> 서로의 성장과 논리적인 문제 해결. 📈</label>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <h3>7. 갈등 상황에서 당신은 주로 어떻게 대처하나요? 🗣️</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="E_action" required> 적극적으로 의견을 제시하고 토론한다. 🔥</label>
+                    <label><input type="radio" name="q6" value="I_action"> 잠시 생각할 시간을 갖고 신중하게 접근한다. 🤫</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">내 글로벌 매력 확인하기! ✨</button>
+        </form>
+
+        <div id="resultSection" class="result-section">
+            <h2 id="resultTitle">✨ 당신의 매력은 바로 이 나라에서 빛납니다! ✨</h2>
+            <p class="country-name" id="resultCountry"></p>
+            <p class="result-text" id="resultDescription"></p>
+            <img id="resultImage" class="result-image" src="" alt="추천 국가 이미지">
+        </div>
+
+        <div class="hashtags">
+            <span>#해외매력지수 ✈️</span> <span>#나의MBTI 💙</span> <span>#어느나라에서인기있을까 💖</span> <span>#글로벌매력 🌍</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mbtiSurveyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const mbtiType = document.querySelector('input[name="mbtiType"]:checked').value;
+            const resultSection = document.getElementById('resultSection');
+            const resultCountry = document.getElementById('resultCountry');
+            const resultDescription = document.getElementById('resultDescription');
+            const resultImage = document.getElementById('resultImage');
+
+            let country = '';
+            let description = '';
+            let imageUrl = '';
+
+            switch(mbtiType) {
+                case 'ISTJ':
+                    country = '독일 🇩🇪';
+                    description = `ISTJ 유형의 당신은 성실하고 책임감 있는 모습으로 독일 이성들의 마음을 사로잡을 수 있습니다. 꾸준하고 진중한 관계를 선호하는 그들에게 당신의 신뢰감 있는 매력은 큰 호감을 줄 거예요. 🤝`;
+                    imageUrl = 'https://picsum.photos/600/400?random=111&country=germany';
+                    break;
+                case 'ISFJ':
+                    country = '일본 🇯🇵';
+                    description = `ISFJ 유형의 당신은 섬세하고 배려심 깊은 모습으로 일본 이성들에게 큰 호감을 얻을 수 있습니다. 상대방을 존중하고 꼼꼼하게 챙겨주는 당신의 따뜻한 매력에 그들은 진심으로 감동할 것입니다. 🌸`;
+                    imageUrl = 'https://picsum.photos/600/400?random=112&country=japan';
+                    break;
+                case 'INFJ':
+                    country = '프랑스 🇫🇷';
+                    description = `INFJ 유형의 당신은 깊이 있는 통찰력과 따뜻한 감성으로 프랑스 이성들에게 매력을 발산할 수 있습니다. 예술과 철학을 논하며 진정한 소통을 추구하는 당신의 신비롭고 이해심 깊은 모습에 그들은 깊이 매료될 것입니다. 🍷`;
+                    imageUrl = 'https://picsum.photos/600/400?random=113&country=france';
+                    break;
+                case 'INTJ':
+                    country = '스웨덴 🇸🇪';
+                    description = `INTJ 유형의 당신은 논리적이고 독립적인 매력으로 스웨덴 이성들에게 어필할 수 있습니다. 합리적이고 실용적인 사고방식을 존중하며, 개인의 공간을 중요시하는 그들에게 당신의 지적인 매력은 큰 호감을 줄 것입니다. ❄️`;
+                    imageUrl = 'https://picsum.photos/600/400?random=114&country=sweden';
+                    break;
+                case 'ISTP':
+                    country = '캐나다 🇨🇦';
+                    description = `ISTP 유형의 당신은 자유롭고 활동적인 모습으로 캐나다 이성들의 시선을 사로잡을 수 있습니다. 새로운 경험을 즐기고 즉흥적인 모험을 함께할 수 있는 당신의 독립적이고 멋진 매력에 그들은 열광할 것입니다. 🍁`;
+                    imageUrl = 'https://picsum.photos/600/400?random=115&country=canada';
+                    break;
+                case 'ISFP':
+                    country = '이탈리아 🇮🇹';
+                    description = `ISFP 유형의 당신은 감성적이고 예술적인 매력으로 이탈리아 이성들에게 강렬한 인상을 줄 수 있습니다. 자유로운 영혼으로 현재를 즐기며, 아름다움을 추구하는 당신의 모습에 그들은 뜨겁게 반응할 것입니다. 🎭`;
+                    imageUrl = 'https://picsum.photos/600/400?random=116&country=italy';
+                    break;
+                case 'INFP':
+                    country = '뉴질랜드 🇳🇿';
+                    description = `INFP 유형의 당신은 따뜻하고 이상적인 매력으로 뉴질랜드 이성들에게 어필할 수 있습니다. 자연을 사랑하고 평화를 추구하는 당신의 순수하고 진실된 모습에 그들은 큰 편안함과 안정을 느낄 것입니다. 🏞️`;
+                    imageUrl = 'https://picsum.photos/600/400?random=128&country=newzealand';
+                    break;
+                case 'INTP':
+                    country = '네덜란드 🇳🇱';
+                    description = `INTP 유형의 당신은 독창적이고 지적인 매력으로 네덜란드 이성들에게 깊은 인상을 남길 수 있습니다. 논리적이고 분석적인 대화를 즐기며, 새로운 아이디어를 탐구하는 당신의 모습에 그들은 강하게 끌릴 것입니다. 🌷`;
+                    imageUrl = 'https://picsum.photos/600/400?random=129&country=netherlands';
+                    break;
+                case 'ESTP':
+                    country = '미국 🇺🇸';
+                    description = `ESTP 유형의 당신은 대담하고 활기찬 매력으로 미국 이성들의 눈길을 사로잡을 수 있습니다. 적극적이고 재미를 추구하는 당신의 에너지 넘치는 모습에 그들은 즉각적인 흥미를 느끼고 다가올 것입니다. 🗽`;
+                    imageUrl = 'https://picsum.photos/600/400?random=119&country=usa';
+                    break;
+                case 'ESFP':
+                    country = '브라질 🇧🇷';
+                    description = `ESFP 유형의 당신은 사교적이고 밝은 매력으로 브라질 이성들의 마음을 훔칠 수 있습니다. 삶을 즐기고 사람들과 어울리는 것을 좋아하는 당신의 긍정적인 에너지는 그들에게 큰 매력으로 다가갈 것입니다. 💃`;
+                    imageUrl = 'https://picsum.photos/600/400?random=120&country=brazil';
+                    break;
+                case 'ENFP':
+                    country = '스페인 🇪🇸';
+                    description = `ENFP 유형의 당신은 열정적이고 개성 넘치는 매력으로 스페인 이성들에게 어필할 수 있습니다. 자유로운 사고와 넘치는 에너지로 주변을 즐겁게 하는 당신의 모습에 그들은 깊이 매료될 것입니다. 💃`;
+                    imageUrl = 'https://picsum.photos/600/400?random=121&country=spain';
+                    break;
+                case 'ENTP':
+                    country = '영국 🇬🇧';
+                    description = `ENTP 유형의 당신은 재치 있고 도전적인 매력으로 영국 이성들의 관심을 끌 수 있습니다. 지적인 토론과 유머를 즐기며, 예상치 못한 논쟁을 즐기는 당신의 모습에 그들은 매력을 느낄 것입니다. ☕`;
+                    imageUrl = 'https://picsum.photos/600/400?random=122&country=unitedkingdom';
+                    break;
+                case 'ESTJ':
+                    country = '싱가포르 🇸🇬';
+                    description = `ESTJ 유형의 당신은 리더십 있고 현실적인 매력으로 싱가포르 이성들에게 깊은 인상을 줄 수 있습니다. 목표 지향적이고 책임감 있는 당신의 모습은 그들에게 신뢰감을 주고 안정적인 관계를 이끌 것입니다. 🏙️`;
+                    imageUrl = 'https://picsum.photos/600/400?random=130&country=singapore';
+                    break;
+                case 'ESFJ':
+                    country = '대한민국 🇰🇷';
+                    description = `ESFJ 유형의 당신은 따뜻하고 배려심 깊은 매력으로 대한민국 이성들에게 큰 사랑을 받을 수 있습니다. 주변 사람들을 잘 챙기고 공감 능력이 뛰어난 당신의 모습에 그들은 편안함과 안정감을 느낄 것입니다. 🇰🇷`;
+                    imageUrl = 'https://picsum.photos/600/400?random=124&country=korea';
+                    break;
+                case 'ENFJ':
+                    country = '이집트 🇪🇬';
+                    description = `ENFJ 유형의 당신은 사교적이고 영감을 주는 매력으로 이집트 이성들에게 어필할 수 있습니다. 사람들과의 깊은 관계를 중요시하고 긍정적인 영향력을 주는 당신의 모습에 그들은 매료될 것입니다. 🕌`;
+                    imageUrl = 'https://picsum.photos/600/400?random=131&country=egypt';
+                    break;
+                case 'ENTJ':
+                    country = '중국 🇨🇳';
+                    description = `ENTJ 유형의 당신은 카리스마 있고 추진력 있는 매력으로 중국 이성들의 관심을 받을 수 있습니다. 명확한 목표를 설정하고 리더십을 발휘하는 당신의 모습은 그들에게 매력적인 도전이자 파트너로 다가갈 것입니다. 🐉`;
+                    imageUrl = 'https://picsum.photos/600/400?random=132&country=china';
+                    break;
+                default:
+                    country = '전 세계 어디든! 🌍';
+                    description = `당신의 매력은 특정 유형에 국한되지 않고, 전 세계 어디에서든 통할 수 있습니다! 자신감을 가지고 당신만의 매력을 발산해보세요! ✨`;
+                    imageUrl = 'https://picsum.photos/600/400?random=127&country=world';
+                    break;
+            }
+
+            resultCountry.textContent = country;
+            resultDescription.textContent = description;
+            resultImage.src = imageUrl;
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
